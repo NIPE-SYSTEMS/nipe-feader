@@ -35,8 +35,8 @@ all: daemon
 
 # Compile main program
 
-daemon: init bin/obj/daemon.o bin/obj/download.o
-	$(CC) bin/obj/daemon.o bin/obj/download.o $(CFLAGS) -o bin/daemon $(LIBS)
+daemon: init bin/obj/daemon.o bin/obj/download.o bin/obj/arraylist.o bin/obj/debug.o bin/obj/json_c_version.o bin/obj/json_object.o bin/obj/json_object_iterator.o bin/obj/json_tokener.o bin/obj/json_util.o bin/obj/linkhash.o bin/obj/printbuf.o bin/obj/random_seed.o
+	$(CC) bin/obj/daemon.o bin/obj/download.o bin/obj/arraylist.o bin/obj/debug.o bin/obj/json_c_version.o bin/obj/json_object.o bin/obj/json_object_iterator.o bin/obj/json_tokener.o bin/obj/json_util.o bin/obj/linkhash.o bin/obj/printbuf.o bin/obj/random_seed.o $(CFLAGS) -o bin/daemon $(LIBS)
 
 # Initializes directories
 
@@ -51,6 +51,36 @@ bin/obj/daemon.o: src/daemon/daemon.c
 
 bin/obj/download.o: src/daemon/download.c
 	$(CC) $(CFLAGS) -c -o bin/obj/download.o src/daemon/download.c $(LIBS)
+
+bin/obj/arraylist.o: src/daemon/json-c/arraylist.c
+	$(CC) $(CFLAGS) -c -o bin/obj/arraylist.o src/daemon/json-c/arraylist.c $(LIBS)
+
+bin/obj/debug.o: src/daemon/json-c/debug.c
+	$(CC) $(CFLAGS) -c -o bin/obj/debug.o src/daemon/json-c/debug.c $(LIBS)
+
+bin/obj/json_c_version.o: src/daemon/json-c/json_c_version.c
+	$(CC) $(CFLAGS) -c -o bin/obj/json_c_version.o src/daemon/json-c/json_c_version.c $(LIBS)
+
+bin/obj/json_object.o: src/daemon/json-c/json_object.c
+	$(CC) $(CFLAGS) -c -o bin/obj/json_object.o src/daemon/json-c/json_object.c $(LIBS)
+
+bin/obj/json_object_iterator.o: src/daemon/json-c/json_object_iterator.c
+	$(CC) $(CFLAGS) -c -o bin/obj/json_object_iterator.o src/daemon/json-c/json_object_iterator.c $(LIBS)
+
+bin/obj/json_tokener.o: src/daemon/json-c/json_tokener.c
+	$(CC) $(CFLAGS) -c -o bin/obj/json_tokener.o src/daemon/json-c/json_tokener.c $(LIBS)
+
+bin/obj/json_util.o: src/daemon/json-c/json_util.c
+	$(CC) $(CFLAGS) -c -o bin/obj/json_util.o src/daemon/json-c/json_util.c $(LIBS)
+
+bin/obj/linkhash.o: src/daemon/json-c/linkhash.c
+	$(CC) $(CFLAGS) -c -o bin/obj/linkhash.o src/daemon/json-c/linkhash.c $(LIBS)
+
+bin/obj/printbuf.o: src/daemon/json-c/printbuf.c
+	$(CC) $(CFLAGS) -c -o bin/obj/printbuf.o src/daemon/json-c/printbuf.c $(LIBS)
+
+bin/obj/random_seed.o: src/daemon/json-c/random_seed.c
+	$(CC) $(CFLAGS) -c -o bin/obj/random_seed.o src/daemon/json-c/random_seed.c $(LIBS)
 
 # Clean
 

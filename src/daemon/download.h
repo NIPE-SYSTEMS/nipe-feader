@@ -18,8 +18,6 @@
 #ifndef __DOWNLOAD_H__
 #define __DOWNLOAD_H__
 
-#define UNUSED(x) (void)(x)
-
 typedef struct
 {
 	char *data;

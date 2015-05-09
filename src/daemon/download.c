@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <curl/curl.h>
+#include "unused.h"
 #include "download.h"
 
 static CURL *curl = NULL;
