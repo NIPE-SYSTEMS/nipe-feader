@@ -24,15 +24,32 @@
 #include <mrss.h>
 #include "download.h"
 #include "rss_to_file.h"
+#include "config_parser.h"
 
 int main(int argc, char **argv)
 {
-	download_init();
-	rss_to_file("http://www.nipe-systems.de/blog/rss.php", "nipe.json");
-	rss_to_file("https://github.com/NIPE-SYSTEMS.private.atom?token=ADuE4cnQhiyBZSsYTHG4jJI-ZUM3tSjnks6zW0QxwA==", "github.json");
-	rss_to_file("http://heise.de.feedsportal.com/c/35207/f/653902/index.rss", "heise.json");
-	rss_to_file("http://rss.golem.de/rss.php?feed=ATOM1.0", "golem.json");
-	download_free();
+	if(argc != 2)
+	{
+		fprintf(stderr, "Usage: %s [path to config.json]\n", ((argc > 0)?(argv[0]):("nipe-feader-daemon")));
+		return 1;
+	}
+	
+	if(config_parser_parse_file(argv[1]) < 0)
+	{
+		fprintf(stderr, "Failed to parse config file. Aborting.\n");
+		config_parser_free();
+		return 2;
+	}
+	
+	// download_init();
+	// rss_to_file("http://www.nipe-systems.de/blog/rss.php", "nipe.json");
+	// rss_to_file("https://github.com/NIPE-SYSTEMS.private.atom?token=ADuE4cnQhiyBZSsYTHG4jJI-ZUM3tSjnks6zW0QxwA==", "github.json");
+	// rss_to_file("http://heise.de.feedsportal.com/c/35207/f/653902/index.rss", "heise.json");
+	// rss_to_file("http://rss.golem.de/rss.php?feed=ATOM1.0", "golem.json");
+	// download_free();
+	
+	printf("feeds index: %s\n", config_parser_get_feeds_index());
+	config_parser_free();
 	
 	return 0;
 }
