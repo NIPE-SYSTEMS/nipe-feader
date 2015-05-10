@@ -17,22 +17,42 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include "unused.h"
-#include "json-c/json.h"
-#include <mrss.h>
 #include "download.h"
+#include "rss_to_json.h"
+#include "io.h"
 #include "rss_to_file.h"
 
-int main(int argc, char **argv)
+int rss_to_file(char *url, char *path)
 {
-	download_init();
-	rss_to_file("http://www.nipe-systems.de/blog/rss.php", "nipe.json");
-	rss_to_file("https://github.com/NIPE-SYSTEMS.private.atom?token=ADuE4cnQhiyBZSsYTHG4jJI-ZUM3tSjnks6zW0QxwA==", "github.json");
-	rss_to_file("http://heise.de.feedsportal.com/c/35207/f/653902/index.rss", "heise.json");
-	rss_to_file("http://rss.golem.de/rss.php?feed=ATOM1.0", "golem.json");
-	download_free();
+	download_data_t *download_data = NULL;
+	char *json_string = NULL;
+	int error = 0;
+	
+	download_data = download_url(url);
+	if(download_data == NULL)
+	{
+		return -1;
+	}
+	
+	json_string = rss_to_json(download_data->data, download_data->length);
+	if(json_string == NULL)
+	{
+		return -1;
+	}
+	
+	if(io_write(path, json_string, strlen(json_string)) < 0)
+	{
+		error = 1;
+	}
+	
+	free(json_string);
+	
+	if(error == 1)
+	{
+		return -1;
+	}
 	
 	return 0;
 }

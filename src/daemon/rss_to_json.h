@@ -15,24 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include "unused.h"
-#include "json-c/json.h"
-#include <mrss.h>
-#include "download.h"
-#include "rss_to_file.h"
+#ifndef __RSS_TO_JSON_H__
+#define __RSS_TO_JSON_H__
 
-int main(int argc, char **argv)
-{
-	download_init();
-	rss_to_file("http://www.nipe-systems.de/blog/rss.php", "nipe.json");
-	rss_to_file("https://github.com/NIPE-SYSTEMS.private.atom?token=ADuE4cnQhiyBZSsYTHG4jJI-ZUM3tSjnks6zW0QxwA==", "github.json");
-	rss_to_file("http://heise.de.feedsportal.com/c/35207/f/653902/index.rss", "heise.json");
-	rss_to_file("http://rss.golem.de/rss.php?feed=ATOM1.0", "golem.json");
-	download_free();
-	
-	return 0;
-}
+#define SAFE_STRING(x) (((x) == NULL)?(""):(x))
+
+char *rss_to_json(char *data, size_t length);
+
+#endif /* __RSS_TO_JSON_H__ */

@@ -15,19 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __DOWNLOAD_H__
-#define __DOWNLOAD_H__
+#ifndef __RSS_TO_JSON_H__
+#define __RSS_TO_JSON_H__
 
-typedef struct
-{
-	char *description;
-	char *pubDate;
-	char *guid;
-	char *content;
-} rss_item_t;
+int rss_to_file(char *url, char *path);
 
-void download_init(void);
-void download_free(void);
-download_data_t *download_url(char *url);
-
-#endif /* __DOWNLOAD_H__ */
+#endif /* __RSS_TO_JSON_H__ */

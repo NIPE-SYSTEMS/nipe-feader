@@ -17,8 +17,22 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include "unused.h"
-#include <libxml/xmlreader.h>
-#include "rss.h"
+#include <string.h>
+#include "io.h"
 
+int io_write(char *path, char *data, size_t length)
+{
+	FILE *fd = NULL;
+	
+	fd = fopen(path, "w");
+	if(fd == NULL)
+	{
+		fprintf(stderr, "Failed to open file: %s\n", path);
+		return -1;
+	}
+	
+	fwrite(data, sizeof(char), length, fd);
+	fclose(fd);
+	
+	return 0;
+}
