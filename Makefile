@@ -22,12 +22,14 @@ CFLAGS += -Wextra
 # CFLAGS += `pkg-config --cflags glib-2.0`
 # CFLAGS += `pkg-config --cflags gio-2.0`
 CFLAGS += `pkg-config --cflags libcurl`
+CFLAGS += `pkg-config --cflags libxml-2.0`
 
 # LIBS += `pkg-config --libs libsoup-2.4`
 # LIBS += `pkg-config --libs json-glib-1.0`
 # LIBS += `pkg-config --libs glib-2.0`
 # LIBS += `pkg-config --libs gio-2.0`
 LIBS += `pkg-config --libs libcurl`
+LIBS += `pkg-config --libs libxml-2.0`
 
 .PHONY: all daemon init clean
 
