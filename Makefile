@@ -39,8 +39,8 @@ all: daemon
 
 # Compile main program
 
-daemon: init bin/obj/daemon.o bin/obj/download.o bin/obj/rss_to_json.o bin/obj/io.o bin/obj/rss_to_file.o bin/obj/config_parser.o bin/obj/loop.o bin/obj/arraylist.o bin/obj/debug.o bin/obj/json_c_version.o bin/obj/json_object.o bin/obj/json_object_iterator.o bin/obj/json_tokener.o bin/obj/json_util.o bin/obj/linkhash.o bin/obj/printbuf.o bin/obj/random_seed.o
-	$(CC) bin/obj/daemon.o bin/obj/download.o bin/obj/rss_to_json.o bin/obj/io.o bin/obj/rss_to_file.o bin/obj/config_parser.o bin/obj/loop.o bin/obj/arraylist.o bin/obj/debug.o bin/obj/json_c_version.o bin/obj/json_object.o bin/obj/json_object_iterator.o bin/obj/json_tokener.o bin/obj/json_util.o bin/obj/linkhash.o bin/obj/printbuf.o bin/obj/random_seed.o $(CFLAGS) -o bin/nipe-feader-daemon $(LIBS)
+daemon: init bin/obj/daemon.o bin/obj/download.o bin/obj/rss_to_json.o bin/obj/io.o bin/obj/rss_to_file.o bin/obj/config_parser.o bin/obj/loop.o bin/obj/feed.o bin/obj/arraylist.o bin/obj/debug.o bin/obj/json_c_version.o bin/obj/json_object.o bin/obj/json_object_iterator.o bin/obj/json_tokener.o bin/obj/json_util.o bin/obj/linkhash.o bin/obj/printbuf.o bin/obj/random_seed.o
+	$(CC) bin/obj/daemon.o bin/obj/download.o bin/obj/rss_to_json.o bin/obj/io.o bin/obj/rss_to_file.o bin/obj/config_parser.o bin/obj/loop.o bin/obj/feed.o bin/obj/arraylist.o bin/obj/debug.o bin/obj/json_c_version.o bin/obj/json_object.o bin/obj/json_object_iterator.o bin/obj/json_tokener.o bin/obj/json_util.o bin/obj/linkhash.o bin/obj/printbuf.o bin/obj/random_seed.o $(CFLAGS) -o bin/nipe-feader-daemon $(LIBS)
 
 # Initializes directories
 
@@ -69,8 +69,10 @@ bin/obj/config_parser.o: src/daemon/config_parser.c
 	$(CC) $(CFLAGS) -c -o bin/obj/config_parser.o src/daemon/config_parser.c $(LIBS)
 
 bin/obj/loop.o: src/daemon/loop.c
-	@echo Making loop.c
 	$(CC) $(CFLAGS) -c -o bin/obj/loop.o src/daemon/loop.c $(LIBS)
+
+bin/obj/feed.o: src/daemon/feed.c
+	$(CC) $(CFLAGS) -c -o bin/obj/feed.o src/daemon/feed.c $(LIBS)
 
 bin/obj/arraylist.o: src/daemon/json-c/arraylist.c
 	$(CC) $(CFLAGS) -c -o bin/obj/arraylist.o src/daemon/json-c/arraylist.c $(LIBS)

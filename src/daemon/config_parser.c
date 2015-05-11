@@ -71,6 +71,7 @@ void config_parser_free(void)
 {
 	free(config_parser_feeds_index);
 	free(config_parser_temp_path_file);
+	free(config_parser_pid_file);
 }
 
 char *config_parser_get_feeds_index(void)

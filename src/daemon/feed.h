@@ -15,27 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __IO_H__
-#define __IO_H__
+#ifndef __FEED_H__
+#define __FEED_H__
 
-#define IO_TEMPDIR_NAME "/tmp/nipe-feader-XXXXXX"
-#define IO_TEMPFILE_NAME "XXXXXX"
-
-struct _io_temp_file_t
+struct _feed_t
 {
-	struct _io_temp_file_t *next;
-	char *path;
-	FILE *fp;
-	char fp_open;
+	struct _feed_t *next;
+	char *url;
+	char *filename;
+	unsigned long int interval;
+	unsigned long int last_download;
 };
-typedef struct _io_temp_file_t io_temp_file_t;
+typedef struct _feed_t feed_t;
 
-int io_write(char *path, char *data, size_t length);
-int io_mk_tempdir(void);
-void io_mk_tempdir_cleanup(void);
-FILE *io_open_new_tempfile(void);
-void io_create_pid_file(void);
-void io_pid_file_cleanup(void);
-char *io_generate_file_path(char *url);
+void feed_append(feed_t *trailing);
+feed_t *feed_new(char *url, unsigned long int interval);
+void feed_free(feed_t *feed);
+void feed_free_recursive(feed_t *feed);
+void feed_cleanup(void);
+int feed_parse_index(void);
+int feed_download(void);
 
-#endif /* __IO_H__ */
+#endif /* __FEED_H__ */

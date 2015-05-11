@@ -22,27 +22,36 @@
 #include <signal.h>
 #include "unused.h"
 #include "loop.h"
+#include "feed.h"
 
 static char running = 0;
 
 static void loop_signal_handler_alarm(int signal_number)
 {
-	printf("SIGALRM: Signal number: %i\n", signal_number);
+	UNUSED(signal_number);
+	
+	// printf("Got SIGALRM.\n");
 }
 
 static void loop_signal_handler_usr1(int signal_number)
 {
-	printf("SIGUSR1: Signal number: %i\n", signal_number);
+	UNUSED(signal_number);
+	
+	printf("Got SIGUSR1.\n");
 }
 
 static void loop_signal_handler_usr2(int signal_number)
 {
-	printf("SIGUSR2: Signal number: %i\n", signal_number);
+	UNUSED(signal_number);
+	
+	printf("Got SIGUSR2.\n");
 }
 
 static void loop_signal_handler_interrupt(int signal_number)
 {
-	printf("SIGINT: Signal number: %i\n", signal_number);
+	UNUSED(signal_number);
+	
+	printf("Got SIGINT. Stopping main loop...\n");
 	
 	running = 0;
 }
@@ -55,8 +64,6 @@ void loop_register_signals(void)
 	signal(SIGUSR1, loop_signal_handler_usr1);
 	signal(SIGUSR2, loop_signal_handler_usr2);
 	signal(SIGINT, loop_signal_handler_interrupt);
-	
-	alarm(30);
 }
 
 void loop_main_loop(void)
@@ -65,6 +72,7 @@ void loop_main_loop(void)
 	
 	while(running == 1)
 	{
+		alarm(feed_download());
 		pause();
 	}
 }
