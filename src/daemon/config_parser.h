@@ -19,9 +19,13 @@
 #define __CONFIG_PARSER_H__
 
 #define CONFIG_PARSER_DEFAULT_FEEDS_INDEX "/home/hendrik/Programme/nipe-feader/index.json"
+#define CONFIG_PARSER_DEFAULT_TEMP_PATH_FILE "/home/hendrik/Programme/nipe-feader/temp.path"
+#define CONFIG_PARSER_DEFAULT_PID_FILE "/home/hendrik/Programme/nipe-feader/pid"
 
 int config_parser_parse_file(char *path);
 void config_parser_free(void);
 char *config_parser_get_feeds_index(void);
+char *config_parser_get_temp_path_file(void);
+char *config_parser_get_pid_file(void);
 
 #endif /* __CONFIG_PARSER_H__ */

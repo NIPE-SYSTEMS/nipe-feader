@@ -25,9 +25,13 @@
 #include "download.h"
 #include "rss_to_file.h"
 #include "config_parser.h"
+#include "io.h"
+#include "loop.h"
 
 int main(int argc, char **argv)
 {
+	// FILE *tmp_file = NULL;
+	
 	if(argc != 2)
 	{
 		fprintf(stderr, "Usage: %s [path to config.json]\n", ((argc > 0)?(argv[0]):("nipe-feader-daemon")));
@@ -41,6 +45,29 @@ int main(int argc, char **argv)
 		return 2;
 	}
 	
+	// fork at this point
+	
+	if(io_mk_tempdir() < 0)
+	{
+		config_parser_free();
+		io_mk_tempdir_cleanup();
+		return 3;
+	}
+	
+	io_create_pid_file();
+	
+	loop_register_signals();
+	
+	printf("feeds index: %s\n", config_parser_get_feeds_index());
+	printf("temp path file: %s\n", config_parser_get_temp_path_file());
+	printf("pid file: %s\n", config_parser_get_pid_file());
+	
+	// if((tmp_file = io_open_new_tempfile()) != NULL)
+	// {
+	// 	printf("Temp file created!\n");
+	// 	fclose(tmp_file);
+	// }
+	
 	// download_init();
 	// rss_to_file("http://www.nipe-systems.de/blog/rss.php", "nipe.json");
 	// rss_to_file("https://github.com/NIPE-SYSTEMS.private.atom?token=ADuE4cnQhiyBZSsYTHG4jJI-ZUM3tSjnks6zW0QxwA==", "github.json");
@@ -48,7 +75,10 @@ int main(int argc, char **argv)
 	// rss_to_file("http://rss.golem.de/rss.php?feed=ATOM1.0", "golem.json");
 	// download_free();
 	
-	printf("feeds index: %s\n", config_parser_get_feeds_index());
+	loop_main_loop();
+	
+	io_mk_tempdir_cleanup();
+	io_pid_file_cleanup();
 	config_parser_free();
 	
 	return 0;

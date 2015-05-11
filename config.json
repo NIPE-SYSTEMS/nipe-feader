@@ -1,3 +1,5 @@
 {
-	"feeds_index": "/home/hendrik/Programme/nipe-feader/index.json"
+	"feeds_index": "/home/hendrik/Programme/nipe-feader/index.json",
+	"temp_path_file": "/home/hendrik/Programme/nipe-feader/temp.path",
+	"pid_file": "/home/hendrik/Programme/nipe-feader/pid"
 }

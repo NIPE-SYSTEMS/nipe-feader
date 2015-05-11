@@ -1,0 +1,9 @@
+{
+	"feeds":
+	[
+		"http://www.nipe-systems.de/blog/rss.php",
+		"https://github.com/NIPE-SYSTEMS.private.atom?token=ADuE4cnQhiyBZSsYTHG4jJI-ZUM3tSjnks6zW0QxwA==",
+		"http://heise.de.feedsportal.com/c/35207/f/653902/index.rss",
+		"http://rss.golem.de/rss.php?feed=ATOM1.0"
+	]
+}

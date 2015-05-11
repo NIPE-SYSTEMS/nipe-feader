@@ -15,26 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __IO_H__
-#define __IO_H__
+#ifndef __LOOP_H__
+#define __LOOP_H__
 
-#define IO_TEMPDIR_NAME "/tmp/nipe-feader-XXXXXX"
-#define IO_TEMPFILE_NAME "XXXXXX"
+void loop_register_signals(void);
+void loop_main_loop(void);
 
-struct _io_temp_file_t
-{
-	struct _io_temp_file_t *next;
-	char *path;
-	FILE *fp;
-	char fp_open;
-};
-typedef struct _io_temp_file_t io_temp_file_t;
-
-int io_write(char *path, char *data, size_t length);
-int io_mk_tempdir(void);
-void io_mk_tempdir_cleanup(void);
-FILE *io_open_new_tempfile(void);
-void io_create_pid_file(void);
-void io_pid_file_cleanup(void);
-
-#endif /* __IO_H__ */
+#endif /* __LOOP_H__ */

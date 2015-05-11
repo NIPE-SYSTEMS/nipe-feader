@@ -23,6 +23,8 @@
 #include "config_parser.h"
 
 static char *config_parser_feeds_index = NULL;
+static char *config_parser_temp_path_file = NULL;
+static char *config_parser_pid_file = NULL;
 
 int config_parser_parse_file(char *path)
 {
@@ -42,6 +44,16 @@ int config_parser_parse_file(char *path)
 			free(config_parser_feeds_index);
 			config_parser_feeds_index = strdup(json_object_get_string(value));
 		}
+		else if(strcmp(key, "temp_path_file") == 0 && json_object_get_type(value) == json_type_string)
+		{
+			free(config_parser_temp_path_file);
+			config_parser_temp_path_file = strdup(json_object_get_string(value));
+		}
+		else if(strcmp(key, "pid_file") == 0 && json_object_get_type(value) == json_type_string)
+		{
+			free(config_parser_pid_file);
+			config_parser_pid_file = strdup(json_object_get_string(value));
+		}
 		else
 		{
 			fprintf(stderr, "Unknown JSON node in config file: %s (node name: %s)\n", path, key);
@@ -58,6 +70,7 @@ int config_parser_parse_file(char *path)
 void config_parser_free(void)
 {
 	free(config_parser_feeds_index);
+	free(config_parser_temp_path_file);
 }
 
 char *config_parser_get_feeds_index(void)
@@ -68,4 +81,24 @@ char *config_parser_get_feeds_index(void)
 	}
 	
 	return config_parser_feeds_index;
+}
+
+char *config_parser_get_temp_path_file(void)
+{
+	if(config_parser_temp_path_file == NULL)
+	{
+		return CONFIG_PARSER_DEFAULT_TEMP_PATH_FILE;
+	}
+	
+	return config_parser_temp_path_file;
+}
+
+char *config_parser_get_pid_file(void)
+{
+	if(config_parser_pid_file == NULL)
+	{
+		return CONFIG_PARSER_DEFAULT_PID_FILE;
+	}
+	
+	return config_parser_pid_file;
 }
